@@ -1,0 +1,20 @@
+---
+version: "3"
+
+tasks:
+  apply:
+    desc: Deploy config
+    dir: "{{.PROJECT_DIR}}"
+    vars:
+      pod_name: $(kubectl get pod -l app.kubernetes.io/name=home-assistant -n home -o name | sed 's/pod\///')
+    cmds:
+      - kubectl cp config home/{{.pod_name}}:/
+      - kubectl rollout restart deployment home-assistant -n home
+
+  sh:
+    desc: Get a shell
+    dir: "{{.PROJECT_DIR}}"
+    vars:
+      pod_name: $(kubectl get pod -l app.kubernetes.io/name=home-assistant -n home -o name | sed 's/pod\///')
+    cmds:
+      - kubectl exec -it {{.pod_name}} -n home -- bash

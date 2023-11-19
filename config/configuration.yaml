@@ -1,0 +1,34 @@
+homeassistant:
+    external_url: !env_var HASS_EXTERNAL_URL
+    unit_system:  !env_var HASS_UNIT_SYSTEM
+    latitude:     !env_var HASS_LATITUDE
+    longitude:    !env_var HASS_LONGITUDE
+    elevation:    !env_var HASS_ELEVATION
+    time_zone:    !env_var TZ
+
+http:
+    use_x_forwarded_for: true
+    trusted_proxies:
+      - !env_var HASS_TRUSTED_PROXIES
+
+recorder:
+    purge_keep_days: !env_var HASS_PURGE_KEEP_DAYS
+
+# Loads default set of integrations. Do not remove.
+default_config:
+
+# Load frontend themes from the themes folder
+frontend:
+  themes:   !include_dir_merge_named themes
+
+automation: !include automations.yaml
+script:     !include scripts.yaml
+scene:      !include scenes.yaml
+
+modbus:
+  name: villavent
+  type: tcp
+  host: 192.168.4.67
+  port: 8234
+
+sensor:    !include sensors.yaml
