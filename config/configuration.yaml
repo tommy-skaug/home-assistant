@@ -31,4 +31,6 @@ modbus:
   host: 192.168.4.67
   port: 8234
 
-sensor:    !include sensors.yaml
+sensor: !include sensors.yaml
+
+light: !include lights.yaml

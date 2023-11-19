@@ -1,0 +1,6 @@
+- platform: group
+  name: "Tak"
+  unique_id: "tak_trapp"
+  entities:
+    - light.tak_japanlampe_trapp
+    - light.tak_trapp_oppe
